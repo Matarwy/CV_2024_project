@@ -34,8 +34,8 @@ validation_images = []
 validation_labels = []
 
 for i in range(1, num_classes + 1):
-    train_dir = "Product Classification/" + str(i) + "/Train"
-    validation_dir = "Product Classification/" + str(i) + "/Validation"
+    train_dir = "Data/Product Classification/" + str(i) + "/Train"
+    validation_dir = "Data/Product Classification/" + str(i) + "/Validation"
     class_name = str(i)
 
     for filename in os.listdir(train_dir):
