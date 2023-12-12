@@ -10,7 +10,6 @@ from sklearn.svm import SVC
 
 # model_vgg16 = VGG16(weights='imagenet', include_top=False) # 97
 model_MobileNet = MobileNet(weights='imagenet', include_top=False)  # 100
-print(model_MobileNet.summary())
 
 
 def extract_features(images):
