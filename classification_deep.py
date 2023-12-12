@@ -1,21 +1,18 @@
 import os
 import numpy as np
-import tensorflow as tf
-import keras
-from keras.applications import VGG16, InceptionV3, MobileNet
+from keras.applications import MobileNet
 from keras.applications.mobilenet_v2  import preprocess_input
-from keras.preprocessing import image
 from keras.utils import load_img, img_to_array
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from keras.applications import ResNet50
+
 
 # keras.applications.vgg16.VGG16
-#model_vgg16 = VGG16(weights='imagenet', include_top=False) #97
+# model_vgg16 = VGG16(weights='imagenet', include_top=False) #97
 model_MobileNet = MobileNet(weights='imagenet', include_top=False) #100
 print(model_MobileNet.summary())
+
 
 def extract_features(images):
     features = []
@@ -26,7 +23,8 @@ def extract_features(images):
         x = preprocess_input(x)
         features.append(model_MobileNet.predict(x).flatten())
     return np.array(features)
-#
+
+
 num_classes = 20
 train_images = []
 train_labels = []
