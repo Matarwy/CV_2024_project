@@ -4,7 +4,7 @@ from glob import glob
 import argparse
 
 from matplotlib import pyplot as plt
-
+import time
 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -80,7 +80,7 @@ def test():
             label.append(label_count)
         label_count += 1
 
-    return test_img,label
+    return test_img,label,testImages
 
 def test1ormore():
     test_pathormore = args['test_path1ormore']
@@ -106,8 +106,7 @@ def test1ormore():
             label.append(label_count)
         label_count += 1
 
-
-    return test_img,label
+    return test_img,label,testImages
 
 
 
@@ -129,6 +128,22 @@ def getFiles( path):
 parser = argparse.ArgumentParser(
     description=" Bag of visual words example"
 )
+#
+# def predict_im(pl,imagee):
+#     predictions = []
+#     for  imlist in imagee.items(),pl:
+#
+#             predictions.append({
+#             'image': imlist,
+#
+#             'object_name': pl})
+#
+#     for each in predictions:
+#
+#         plt.imshow(cv2.cvtColor(each['image'], cv2.COLOR_GRAY2RGB))
+#         plt.title(each['object_name'])
+#         plt.show()
+#
 
 if __name__ == '__main__':
 
@@ -139,19 +154,24 @@ if __name__ == '__main__':
     print(args)
     train_path = args['train_path']
     test_path = args['test_path']
-    test_pathormore = args['test_path1ormore']
 
-    #test_img, label = test1ormore()
+
+#    test_img, label,im = test1ormore()
     descriptor_list,train_labels=train()
-
-    test_img, label = test()
-
+   # test_pathormore = args['test_path1ormore']
+    test_img, label,im = test()
+    #test_img, label = test()
     lin_svc = svm.LinearSVC(C=1).fit(descriptor_list, train_labels)
     linear_acc_test = lin_svc.score(test_img, label) * 100
     print('	Testing accuracy to Linear svm model', linear_acc_test)
     linear_acc_train = lin_svc.score(descriptor_list, train_labels) * 100
     print('training accuracy to Linear model', linear_acc_train)
     p = lin_svc.predict(test_img)
+
+    # # im_pr = []
+    # # im_pr.append(p)
+    # predict_im(p, im)
+
     print(p)
     ###########
     rbf_svc = svm.SVC(kernel='rbf', degree=5, C=1).fit(descriptor_list, train_labels)
