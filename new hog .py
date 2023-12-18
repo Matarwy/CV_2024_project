@@ -161,33 +161,52 @@ if __name__ == '__main__':
    # test_pathormore = args['test_path1ormore']
     test_img, label,im = test()
     #test_img, label = test()
+
+    start_time_fit_data = time.time()
+
     lin_svc = svm.LinearSVC(C=1).fit(descriptor_list, train_labels)
+    time_lin_svc_fit_data = time.time() - start_time_fit_data
     linear_acc_test = lin_svc.score(test_img, label) * 100
     print('	Testing accuracy to Linear svm model', linear_acc_test)
     linear_acc_train = lin_svc.score(descriptor_list, train_labels) * 100
     print('training accuracy to Linear model', linear_acc_train)
-    p = lin_svc.predict(test_img)
+    start_time_predict_data = time.time()
 
+    p = lin_svc.predict(test_img)
+    time_lin_test_data = time.time() - start_time_predict_data
+    print(f"\n\033[92m time logistic to fit data: {time_lin_svc_fit_data}\033[0m")
+    print(f"\n\033[92m time logistic to fit data: {time_lin_test_data}\033[0m")
     # # im_pr = []
     # # im_pr.append(p)
     # predict_im(p, im)
 
     print(p)
     ###########
+    start_time_fit1_data = time.time()
     rbf_svc = svm.SVC(kernel='rbf', degree=5, C=1).fit(descriptor_list, train_labels)
+    time_rbf_svc_fit_data = time.time() - start_time_fit1_data
     rpf_acc_test = rbf_svc.score(test_img, label)*100
     print('	Testing accuracy to RPF model', rpf_acc_test)
 
     rpf_acc_train = rbf_svc.score(descriptor_list, train_labels)*100
     print('training accuracy to RPF model', rpf_acc_train)
+    start_time_predict1_data = time.time()
     m=rbf_svc.predict(test_img)
+    time_rpf_test_data = time.time() - start_time_predict1_data
     print(m)
+    print(f"\n\033[92m time logistic to fit data: {time_rbf_svc_fit_data}\033[0m")
+    print(f"\n\033[92m time logistic to fit data: {time_rpf_test_data}\033[0m")
     # poly------------------------
+    start_time_fit2_data = time.time()
     poly_svc = svm.SVC(kernel='poly', degree=3, C=1).fit(descriptor_list, train_labels)
+    time_poly_svc_fit_data = time.time() - start_time_fit2_data
     poly_acc_test = poly_svc.score(test_img, label) * 100
     print('	Testing accuracy to Polynomial model', poly_acc_test)
     poly_acc_train = poly_svc.score(descriptor_list, train_labels) * 100
     print('training accuracy to Polynomial model', poly_acc_train)
+    start_time_predoct2_data = time.time()
     k=poly_svc.predict(test_img)
+    time_poly_predict_data = time.time() - start_time_predoct2_data
     print(k)
-
+    print(f"\n\033[92m time logistic to fit data: {time_poly_svc_fit_data}\033[0m")
+    print(f"\n\033[92m time logistic to fit data: {time_poly_predict_data}\033[0m")
