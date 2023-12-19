@@ -267,7 +267,7 @@ def find_most_similar_image(siamese_model, anchor_path, folder_path):
     return most_similar_image
 
 
-anchor_image_path = "Data/Test Classification/1/web15.jpg"
+anchor_image_path = "Data/test_scenario1/anchor.png"
 folder_path = "Data/test_scenario1"
 most_similar_image = find_most_similar_image(SIAMESE_MODEL, anchor_image_path, folder_path)
 print(f"The most similar image to the anchor is: {most_similar_image}")
@@ -325,7 +325,7 @@ def evaluate(siamese_model, test_folder, training_folders):
 
 
 training_folders = [os.path.join(_TRAIN_DIR, folder) for folder in os.listdir(_TRAIN_DIR)]
-test_dir = os.path.relpath("Data/test_scenario_2")
+test_dir = os.path.relpath("Data/Test Samples Recognition")
 accuracy_test = evaluate(SIAMESE_MODEL, test_dir, training_folders)
 
 print(f"\nAccuracy on Test Set: {accuracy_test}")
